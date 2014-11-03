@@ -4,4 +4,4 @@ A little tutorial written in Swift playgrounds to play around with transducers. 
 
 ### About
 
-The `transducers.playground` file is generated from `transducers.md` using the [playground](https://github.com/jas/playground) tool.
+The `transducers.playground` file is generated from `transducers.md` using this [playground](https://github.com/jas/playground) tool.
