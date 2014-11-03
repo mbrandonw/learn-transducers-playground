@@ -64,7 +64,7 @@ This signature helps clarify that `filter` simply lifts a predicate `A -> Bool` 
 Using these combinators and array processing functions we can do all types of fun stuff. Let's take a large array of integers and run them through a few functions:
 
 ```swift
-let xs = Array(2...100)
+let xs = Array(1...100)
 
 func square (n: Int) -> Int { 
   return n * n

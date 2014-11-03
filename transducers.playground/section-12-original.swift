@@ -1,4 +1,4 @@
-let xs = Array(2...100)
+let xs = Array(1...100)
 
 func square (n: Int) -> Int { 
   return n * n
