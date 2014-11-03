@@ -1,11 +1,9 @@
 func filter <A> (p: A -> Bool) -> [A] -> [A] {
   return {xs in
-    return xs.reduce([]) {accum, x in
-      if p(x) {
-        return accum + [x]
-      } else {
-        return accum
-      }
+    var ys = [A]()
+    for x in xs {
+      if p(x) { ys.append(x) }
     }
+    return ys
   }
 }

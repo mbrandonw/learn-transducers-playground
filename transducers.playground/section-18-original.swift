@@ -28,8 +28,8 @@ func take_from_reduce <A> (n: Int) -> [A] -> [A] {
   }
 }
 
-map_from_reduce(sqrt)([1.0, 2.0, 3.0])
+[1.0, 2.0, 3.0] |> map_from_reduce(sqrt)
 
-filter_from_reduce(isfinite)([1.0, 2.0, 3.0, 1.0/0.0])
+[1.0, 2.0, 3.0, 1.0/0.0] |> filter_from_reduce(isfinite)
 
-take_from_reduce(5)([1, 2, 3, 4, 5, 6, 7, 8])
+[1, 2, 3, 4, 5, 6, 7, 8] |> take_from_reduce(5)
