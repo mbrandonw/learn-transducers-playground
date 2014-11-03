@@ -11,7 +11,7 @@
 <body>
 <div class="content-wrapper">
   <section class="section">
-    <p>Now that we know <code>reduce</code> is in some sense &quot;universal&quot; among functions that process arrays we can try unifying all of our array processing under <code>reduce</code> and see if that aids in composition. To get to that point we are going to define some more things. First a term: given data types <code>A</code> and <code>C</code> we call a function of the form <code>(C, A) -&gt; C</code> a <strong>reducer</strong> on A. These are precisely the kinds of functions we could feed into <code>reduce</code>. The first argument is called the <strong>accumulation</strong> and the second element is just the element of the array being inspected. A function that takes a reducer on <code>A</code> and returns a reducer on <code>B</code> is called a transducer. A simple example would be the following:</p>
+    <p>Now that we know <code>reduce</code> is in some sense &quot;universal&quot; among functions that process arrays we can try unifying all of our array processing under <code>reduce</code> and see if that aids in composition. To get to that point we are going to define some more things. First a term: given data types <code>A</code> and <code>C</code> we call a function of the form <code>(C, A) -&gt; C</code> a <strong>reducer</strong> on <code>A</code>. These are precisely the kinds of functions we could feed into <code>reduce</code>. The first argument is called the <strong>accumulation</strong> and the second element is just the element of the array being inspected. A function that takes a reducer on <code>A</code> and returns a reducer on <code>B</code> is called a <strong>transducer</strong>. A simple example would be the following:</p>
 
   </section>
 </div>
