@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Section 23</title>
+  <meta id="xcode-display" name="xcode-display" content="render">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+<body>
+<div class="content-wrapper">
+  <section class="section">
+    <p>This lifts a predicate <code>A -&gt; Bool</code> to a transducer from <code>A</code> to <code>A</code>.</p>
+<p>We can use these functions to lift functions and predicates to transducers, and then feed them into <code>reduce</code>. In particular, consider <code>mapping(square)</code>. That lifts <code>square</code> to a transducer <code>((C, Int) -&gt; C) -&gt; ((C, Int) -&gt; C)</code>, where <code>C</code> can be any data type. If we feed a reducer into <code>mapping(square)</code> we get another reducer. A simple reducer that comes up often when dealing with arrays is <code>append</code>, which Swift doesn&#39;t have natively implemented but we can do easily enough:</p>
+
+  </section>
+</div>
+</body>
+</html>
