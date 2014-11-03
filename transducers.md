@@ -145,7 +145,7 @@ func take_from_reduce <A> (n: Int) -> [A] -> [A] {
 [1, 2, 3, 4, 5, 6, 7, 8] |> take_from_reduce(5)
 ```
 
-Now that we know `reduce` is in some sense "universal" among functions that process arrays we can try unifying all of our array processing under `reduce` and see if that aids in composition. To get to that point we are going to define some more things. First a term: given data types `A` and `C` we call a function of the form `(C, A) -> C` a **reducer** on A. These are precisely the kinds of functions we could feed into `reduce`. The first argument is called the **accumulation** and the second element is just the element of the array being inspected. A function that takes a reducer on `A` and returns a reducer on `B` is called a transducer. A simple example would be the following:
+Now that we know `reduce` is in some sense "universal" among functions that process arrays we can try unifying all of our array processing under `reduce` and see if that aids in composition. To get to that point we are going to define some more things. First a term: given data types `A` and `C` we call a function of the form `(C, A) -> C` a **reducer** on `A`. These are precisely the kinds of functions we could feed into `reduce`. The first argument is called the **accumulation** and the second element is just the element of the array being inspected. A function that takes a reducer on `A` and returns a reducer on `B` is called a **transducer**. A simple example would be the following:
 
 ```swift
 func mapping <A, B, C> (f: A -> B) -> ((C, B) -> C) -> ((C, A) -> C) {
