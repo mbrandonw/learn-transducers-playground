@@ -220,3 +220,4 @@ reduce(xs, 0, (+) |> filtering(isprime) |> mapping(incr) |> mapping(square))
 ```
 
 Now that looks pretty good! Some really terrific code reusability going on right there.
+
