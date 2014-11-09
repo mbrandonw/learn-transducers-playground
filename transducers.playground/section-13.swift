@@ -1,1 +1,0 @@
-xs |> fmap(square |> incr)

@@ -96,7 +96,7 @@ func isprime (p: Int) -> Bool {
   return true
 }
 
-filter(isprime)( xs |> fmap(square |> incr) )
+xs |> fmap(square |> incr) |> filter(isprime)
 ```
 
 We're back to being inefficient again since we are processing the `xs` twice: once to `square` and `incr`, and again to check `isprime`.
@@ -192,7 +192,7 @@ Feeding the reducer `mapping(square)(append)` into `reduce` we see that we get t
 ```swift
 reduce(xs, [], mapping(square)(append))
 
-fmap(square)(xs)
+xs |> fmap(square)
 ```
 
 Ok, but now we've just made this code more verbose to seemingly accomplish the same thing. The reason to do this is because transducers are highly composable, whereas regular reducers are not. We can also do:
@@ -200,7 +200,7 @@ Ok, but now we've just made this code more verbose to seemingly accomplish the s
 ```swift
 reduce(xs, [], append |> mapping(incr) |> mapping(square))
 
-fmap(square |> incr)(xs)
+xs |> fmap(square |> incr)
 ```
 
 Well, once again we didn't produce anything new that `map` didn't provide before. However, now we will mix in filters!
@@ -208,7 +208,7 @@ Well, once again we didn't produce anything new that `map` didn't provide before
 ```swift
 reduce(xs, [], append |> filtering(isprime) |> mapping(incr) |> mapping(square))
 
-filter(isprime)( xs |> fmap(square |> incr) )
+xs |> fmap(square |> incr) |> filter(isprime)
 ```
 
 There we go. This is the first time we've written something equivalently with `reduce` and `map`, but the `reduce` way resulted in processing the `xs` a single time, whereas the `map` way needed to iterate over `xs` twice. 

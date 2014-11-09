@@ -8,4 +8,4 @@ func isprime (p: Int) -> Bool {
   return true
 }
 
-filter(isprime)( xs |> fmap(square |> incr) )
+xs |> fmap(square |> incr) |> filter(isprime)
