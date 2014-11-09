@@ -11,7 +11,7 @@
 <body>
 <div class="content-wrapper">
   <section class="section">
-    <p>We&#39;re back to being inefficient again since we are processing the <code>xs</code> twice: once to <code>square</code> and <code>incr</code>, and again to check <code>isprime</code>.</p>
+    <p>We&#39;re back to being inefficient again since we are processing the <code>xs</code> twice: once to <code>square</code> and <code>incr</code>, and again to check <code>isPrime</code>.</p>
 <p>Transducers aim to remedy this by collecting all mapping and filtering functions into a single function that can be run once to process the <code>xs</code>. The idea stems from the observation that most of the functions we write for processing arrays can actually be written in terms of <code>reduce</code>. (In fact, one can make a precise statement about <em>all</em> array functions being rewritten as <code>reduce</code>.) </p>
 <p>For example, here is how one might write <code>map</code>, <code>filter</code> and <code>take</code> in terms of <code>reduce</code>:</p>
 

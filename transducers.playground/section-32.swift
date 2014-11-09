@@ -1,3 +1,3 @@
-reduce(xs, [], append |> filtering(isprime) |> mapping(incr) |> mapping(square))
+reduce(xs, [], append |> filtering(isPrime) |> mapping(incr) |> mapping(square))
 
-xs |> fmap(square |> incr) |> filter(isprime)
+xs |> fmap(square |> incr) |> filter(isPrime)

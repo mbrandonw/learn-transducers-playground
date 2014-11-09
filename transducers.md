@@ -88,7 +88,7 @@ Now we are simultaneously squaring and incrementing the `xs` in a single pass. W
 ```swift
 // Simple function to check primality of an integer. Details of this
 // function aren't important, but it works.
-func isprime (p: Int) -> Bool {
+func isPrime (p: Int) -> Bool {
   if p == 2 { return true }
   for i in 2...Int(sqrtf(Float(p))) {
     if p % i == 0 { return false }
@@ -96,10 +96,10 @@ func isprime (p: Int) -> Bool {
   return true
 }
 
-xs |> fmap(square |> incr) |> filter(isprime)
+xs |> fmap(square |> incr) |> filter(isPrime)
 ```
 
-We're back to being inefficient again since we are processing the `xs` twice: once to `square` and `incr`, and again to check `isprime`.
+We're back to being inefficient again since we are processing the `xs` twice: once to `square` and `incr`, and again to check `isPrime`.
 
 Transducers aim to remedy this by collecting all mapping and filtering functions into a single function that can be run once to process the `xs`. The idea stems from the observation that most of the functions we write for processing arrays can actually be written in terms of `reduce`. (In fact, one can make a precise statement about *all* array functions being rewritten as `reduce`.) 
 
@@ -206,9 +206,9 @@ xs |> fmap(square |> incr)
 Well, once again we didn't produce anything new that `map` didn't provide before. However, now we will mix in filters!
 
 ```swift
-reduce(xs, [], append |> filtering(isprime) |> mapping(incr) |> mapping(square))
+reduce(xs, [], append |> filtering(isPrime) |> mapping(incr) |> mapping(square))
 
-xs |> fmap(square |> incr) |> filter(isprime)
+xs |> fmap(square |> incr) |> filter(isPrime)
 ```
 
 There we go. This is the first time we've written something equivalently with `reduce` and `map`, but the `reduce` way resulted in processing the `xs` a single time, whereas the `map` way needed to iterate over `xs` twice. 
@@ -216,8 +216,57 @@ There we go. This is the first time we've written something equivalently with `r
 Let's add another wrinkle. Say we didn't just want those primes that are of the form `n*n+1` for `2 <= n <= 100`, but we wanted to find their sum. It's a very easy change:
 
 ```swift
-reduce(xs, 0, (+) |> filtering(isprime) |> mapping(incr) |> mapping(square))
+reduce(xs, 0, (+) |> filtering(isPrime) |> mapping(incr) |> mapping(square))
 ```
 
 Now that looks pretty good! Some really terrific code reusability going on right there.
+
+Sometimes it's useful to truncate an array to the first `n` elements, especially when dealing with large data sets. How can we introduce truncation into our `reduce` processing pipeline? Well, we need another transducer. Given an integer and a reducer we need to construct a new reducer that simply accumulates until the accumulation has reached size `n`. Or in code:
+
+```swift
+func taking <A, C> (n: Int) -> (([C], A) -> [C]) -> (([C], A) -> [C]) {
+  return { reducer in
+    return { accum, x in
+      if accum.count < n {
+        return reducer(accum, x)
+      } else {
+        return accum
+      }
+    }
+  }
+}
+```
+
+Note that this transducer is specialized in that it can only work with reducers of the type `([C], A) -> [C]`, whereas our other transducers allowed for the more general case of `(C, A) -> C`, i.e. the accumulation needs to be an array.
+
+Now say that we don't want to just find the primes of the form `n^2+1` for `2 <= n <= 100`. Say we want to find the first 10 *twin primes* of the form `n^2+1` (a *twin prime* is a prime `p` such that `p+2` is also prime). First we need a function for twin primality testing:
+
+```swift
+func isTwinPrime (p: Int) -> Bool {
+  return isPrime(p) && isPrime(p+2)
+}
+```
+
+Then we can find the first 10 twin primes of the form `n^2+1` via:
+
+```swift 
+reduce(1...200, [],
+  append |> filtering(isTwinPrime) 
+         |> mapping(incr) 
+         |> mapping(square)
+         |> taking(10))
+```
+
+This is all done with a single pass of the array of integers `1...200`, and it stops the moment 10 twin primes are found.
+
+
+Note that we had to choose a large enough range (`1...200` in this case) to ensure that we would fine all the twin primes we were looking for. That's an unfortunate choice to make. Instead, it would be nice to work on the full sequence of positive integers so we didn't have to worry about this. In fact, transducers are great for working on *any* list-like data type (streams, sequences, arrays, ...), and we could easily beef up everything we've done so far to work in the more general setting. 
+
+*To be continued...*
+
+
+
+
+
+
 

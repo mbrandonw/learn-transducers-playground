@@ -1,1 +1,1 @@
-reduce(xs, 0, (+) |> filtering(isprime) |> mapping(incr) |> mapping(square))
+reduce(xs, 0, (+) |> filtering(isPrime) |> mapping(incr) |> mapping(square))
