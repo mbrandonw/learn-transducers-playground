@@ -7,11 +7,7 @@ func map_from_reduce <A, B> (f: A -> B) -> [A] -> [B] {
 func filter_from_reduce <A> (p: A -> Bool) -> [A] -> [A] {
   return {xs in
     return xs.reduce([]) { accum, x in 
-      if p(x) {
-        return accum + [x]
-      } else {
-        return accum
-      }
+      return p(x) ? accum + [x] : accum
     }
   }
 }
@@ -19,10 +15,7 @@ func filter_from_reduce <A> (p: A -> Bool) -> [A] -> [A] {
 func take_from_reduce <A> (n: Int) -> [A] -> [A] {
   return {xs in
     return xs.reduce([]) { accum, x in
-      if accum.count < n {
-        return accum + [x]
-      } else {
-        return accum
+      return accum.count < n ? accum + [x] : accum
       }
     }
   }
