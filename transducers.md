@@ -124,7 +124,6 @@ func take_from_reduce <A> (n: Int) -> [A] -> [A] {
   return {xs in
     return xs.reduce([]) { accum, x in
       return accum.count < n ? accum + [x] : accum
-      }
     }
   }
 }
